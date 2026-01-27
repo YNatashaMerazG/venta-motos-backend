@@ -1,8 +1,8 @@
 package com.example.ventamotos.service;
 
+import com.example.ventamotos.excepciones.DatosErroneosException;
+import com.example.ventamotos.excepciones.MotoNoEncontradaException;
 import com.example.ventamotos.model.MotosModel;
-import com.example.ventamotos.repository.DatosErroneosException;
-import com.example.ventamotos.repository.MotoNoEncontradaException;
 import com.example.ventamotos.repository.MotosRepository;
 import org.springframework.stereotype.Service;
 

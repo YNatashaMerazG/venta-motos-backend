@@ -1,4 +1,4 @@
-package com.example.ventamotos.repository;
+package com.example.ventamotos.excepciones;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
