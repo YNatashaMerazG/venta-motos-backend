@@ -10,7 +10,6 @@ public class MotoResponseDto {
     private Integer anio;
     private Long kilometraje;
     private BigDecimal precioVenta;
-    private Boolean estatus;
     private String color;
 
     public Integer getId() {
@@ -67,14 +66,6 @@ public class MotoResponseDto {
 
     public void setPrecioVenta(BigDecimal precioVenta) {
         this.precioVenta = precioVenta;
-    }
-
-    public Boolean getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(Boolean estatus) {
-        this.estatus = estatus;
     }
 
     public String getColor() {

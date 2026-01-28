@@ -41,45 +41,72 @@ public class MotosService {
         return mapToResponse(motoGuardada);
     }
 
-    //LISTA DE LAS MOTOS
-    public List<MotosModel> listaMotos(){
-        return motosRepository.findAll();
+    private List<MotoResponseDto> mapToResponseList(List<MotosModel> motos) {
+        return motos.stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
-    //BUSCAR POR ID
-    public MotosModel buscarMotoID(int id){
+    //LISTA DE LAS MOTOS
+    public List<MotoResponseDto> listaMotos(){
+        return mapToResponseList(motosRepository.findAll());
+    }
+
+    //BUSCAR POR ID (ENTITY)
+    public MotosModel buscarMotoEntity(int id){
         return motosRepository.findById(id)
                 .orElseThrow(() -> new MotoNoEncontradaException("No se encontraron resultados"));
     }
 
+    //BUSCAR POR ID
+    public MotoResponseDto buscarmotoporID(int id){
+        MotosModel moto = buscarMotoEntity(id);
+        return mapToResponse(moto);
+    }
+
     //BUSCAR POR MARCA
-    public List<MotosModel> buscarMarca(String marca){
-        return motosRepository.findByMarcaContainingIgnoreCase(marca);
+    public List<MotoResponseDto> buscarMarca(String marca){
+        List<MotosModel> motos = motosRepository.findByMarcaContainingIgnoreCase(marca);
+        return motos.stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
     //BUSCAR POR CILINDRADA
-    public List<MotosModel> buscarCC(Integer cilindrada){
-        return motosRepository.findByCilindrada(cilindrada);
+    public List<MotoResponseDto> buscarCC(Integer cilindrada){
+        List<MotosModel> motocc = motosRepository.findByCilindrada(cilindrada);
+        return motocc.stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
     //BUSCAR POR ANIO
-    public List<MotosModel> buscarAnio(Integer anio){
-        return motosRepository.findByAnio(anio);
+    public List<MotoResponseDto> buscarAnio(Integer anio){
+        List<MotosModel> motoanio = motosRepository.findByAnio(anio);
+        return motoanio.stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
     //BUSQUEDA POR STATUS
-    public List<MotosModel> buscarEstatus(Boolean estatus){
-        return motosRepository.findByEstatus(estatus);
+    public List<MotoResponseDto> buscarEstatus(Boolean estatus){
+        List<MotosModel> motoestatus = motosRepository.findByEstatus(estatus);
+        return motoestatus.stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
     //BUSQUEDA POR RANGO DE PRECIO
-    public List<MotosModel> buscarRangoPrecio(BigDecimal min, BigDecimal max){
-        return motosRepository.findByPrecioVentaBetween(min, max);
+    public List<MotoResponseDto> buscarRangoPrecio(BigDecimal min, BigDecimal max){
+        List<MotosModel> motos = motosRepository.findByPrecioVentaBetween(min, max);
+        return motos.stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
     //ELIMINAR
     public void eliminarMoto(int id){
-        MotosModel moto = buscarMotoID(id);
+        MotosModel moto = buscarMotoEntity(id);
 
         if(Boolean.FALSE.equals(moto.getEstatus())){
             throw new IllegalStateException("No puedes eliminar una moto que ya ha sido vendida");
@@ -89,8 +116,8 @@ public class MotosService {
     }
 
     //ACTUALIZAR INFORMACION (Patch update: actualizacion parcial)
-    public MotosModel actualizarInfo(int id, MotosModel infonueva){
-        MotosModel moto = buscarMotoID(id);
+    public MotoResponseDto actualizarInfo(int id, MotoRequestDto infonueva){
+        MotosModel moto = buscarMotoEntity(id);
         if(infonueva.getMarca() != null) moto.setMarca(infonueva.getMarca());
         if(infonueva.getModelo() != null) moto.setModelo(infonueva.getModelo());
         if(infonueva.getCilindrada() != null) moto.setCilindrada(infonueva.getCilindrada());
@@ -106,33 +133,34 @@ public class MotosService {
         if(infonueva.getEstatus() != null) moto.setEstatus(infonueva.getEstatus());
 
         validarDatos(moto);
-        return motosRepository.save(moto);
+        return mapToResponse(motosRepository.save(moto));
     }
 
     //GANANCIA ESTIMADA
     public BigDecimal gananciaEstimada(int id){
-        MotosModel moto = buscarMotoID(id);
+        MotosModel moto = buscarMotoEntity(id);
 
         BigDecimal precioVenta = (moto.getPrecioVenta() != null) ? moto.getPrecioVenta() : BigDecimal.ZERO;
         BigDecimal costoReparacion = (moto.getCostoReparaciones() != null) ? moto.getCostoReparaciones() : BigDecimal.ZERO;
+        BigDecimal adeudos = (moto.getAdeudos() != null) ? moto.getAdeudos() : BigDecimal.ZERO;
 
-        return precioVenta.subtract(costoReparacion);
+        return precioVenta.subtract(costoReparacion).subtract(adeudos);
     }
 
     //MARCAR MOTO COMO VENDIDA
-    public MotosModel motoVendida(int id){
-        MotosModel motovendida = buscarMotoID(id);
+    public MotoResponseDto motoVendida(int id){
+        MotosModel motovendida = buscarMotoEntity(id);
 
         motovendida.setEstatus(true);
-        return motosRepository.save(motovendida);
+        return mapToResponse(motosRepository.save(motovendida));
     }
 
     //MARCAR MOTO COMO DISPONIBLE
-    public MotosModel motoDisponible(int id){
-        MotosModel motoDisponible = buscarMotoID(id);
+    public MotoResponseDto motoDisponible(int id){
+        MotosModel motoDisponible = buscarMotoEntity(id);
 
         motoDisponible.setEstatus(false);
-        return motosRepository.save(motoDisponible);
+        return mapToResponse(motosRepository.save(motoDisponible));
     }
 
     private MotosModel mapToEntity(MotoRequestDto dto) {
@@ -144,6 +172,10 @@ public class MotosService {
         moto.setKilometraje(dto.getKilometraje());
         moto.setPrecioVenta(dto.getPrecioVenta());
         moto.setCostoReparaciones(dto.getCostoReparaciones());
+        moto.setPlaca(dto.getPlaca());
+        moto.setFacturaOriginal(dto.getFacturaOriginal());
+        moto.setAdeudos(dto.getAdeudos());
+        moto.setEstetico(dto.getEstetico());
         moto.setColor(dto.getColor());
         moto.setEstatus(dto.getEstatus() != null ? dto.getEstatus() : false);
         return moto;
@@ -158,10 +190,7 @@ public class MotosService {
         dto.setAnio(moto.getAnio());
         dto.setKilometraje(moto.getKilometraje());
         dto.setPrecioVenta(moto.getPrecioVenta());
-        dto.setEstatus(moto.getEstatus());
+        dto.setColor(moto.getColor());
         return dto;
     }
-
-
-
 }

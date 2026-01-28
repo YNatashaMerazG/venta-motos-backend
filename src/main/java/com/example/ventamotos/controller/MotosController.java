@@ -31,49 +31,47 @@ public class MotosController {
 
     //LISTA DE MOTOS
     @GetMapping
-    public ResponseEntity<List<MotosModel>> listaMotos(){
+    public ResponseEntity<List<MotoResponseDto>> listaMotos(){
         return ResponseEntity.ok(motosService.listaMotos());
     }
 
     //BUSCAR POR ID
     @GetMapping("/{id}")
-    public ResponseEntity<MotosModel> buscarID(@PathVariable int id){
-        MotosModel motoID = motosService.buscarMotoID(id);
-        return ResponseEntity.ok(motoID);
+    public ResponseEntity<MotoResponseDto> buscarID(@PathVariable int id){
+        return ResponseEntity.ok(motosService.buscarmotoporID(id));
     }
 
     //BUSCAR POR MARCA
     @GetMapping("/marca/{marca}")
-    public ResponseEntity<List<MotosModel>> buscarMarca(@PathVariable String marca){
-        List<MotosModel> motoMarca = motosService.buscarMarca(marca);
-        return ResponseEntity.ok(motoMarca);
+    public ResponseEntity<List<MotoResponseDto>> buscarMarca(@PathVariable String marca){
+        return ResponseEntity.ok(motosService.buscarMarca(marca));
     }
 
     //BUSCAR POR CILINDRADA
     @GetMapping("/cilindrada/{cilindrada}")
-    public ResponseEntity<List<MotosModel>> buscarCilindrada(@PathVariable Integer cilindrada){
-        List<MotosModel> motoCilindrada = motosService.buscarCC(cilindrada);
+    public ResponseEntity<List<MotoResponseDto>> buscarCilindrada(@PathVariable Integer cilindrada){
+        List<MotoResponseDto> motoCilindrada = motosService.buscarCC(cilindrada);
         return ResponseEntity.ok(motoCilindrada);
     }
 
     //BUSCAR POR ANIO
     @GetMapping("/anio/{anio}")
-    public ResponseEntity<List<MotosModel>> buscarAnio(@PathVariable Integer anio){
-        List<MotosModel> motoAnio = motosService.buscarAnio(anio);
+    public ResponseEntity<List<MotoResponseDto>> buscarAnio(@PathVariable Integer anio){
+        List<MotoResponseDto> motoAnio = motosService.buscarAnio(anio);
         return ResponseEntity.ok(motoAnio);
     }
 
     //BUSQUEDA POR ESTATUS
     @GetMapping("/estatus/{estatus}")
-    public ResponseEntity<List<MotosModel>> busquedaEstatus(@PathVariable Boolean estatus){
-        List<MotosModel> motoEstatus = motosService.buscarEstatus(estatus);
+    public ResponseEntity<List<MotoResponseDto>> busquedaEstatus(@PathVariable Boolean estatus){
+        List<MotoResponseDto> motoEstatus = motosService.buscarEstatus(estatus);
         return ResponseEntity.ok(motoEstatus);
     }
 
     //BUSQUEDA RANGO PRECIO
     @GetMapping("/precio")
-    public ResponseEntity<List<MotosModel>> rangoPrecio(@RequestParam BigDecimal min, @RequestParam BigDecimal max){
-        List<MotosModel> motorangoprecio = motosService.buscarRangoPrecio(min, max);
+    public ResponseEntity<List<MotoResponseDto>> rangoPrecio(@RequestParam BigDecimal min, @RequestParam BigDecimal max){
+        List<MotoResponseDto> motorangoprecio = motosService.buscarRangoPrecio(min, max);
         return ResponseEntity.ok(motorangoprecio);
     }
 
@@ -87,29 +85,25 @@ public class MotosController {
 
     //ACTUALIZAR INFORMACION
     @PatchMapping("/{id}")
-    public ResponseEntity<MotosModel> motoActualizar(@PathVariable int id, @RequestBody MotosModel nuevaInfo){
-        MotosModel actualizarMoto = motosService.actualizarInfo(id, nuevaInfo);
-        return ResponseEntity.ok(actualizarMoto);
+    public ResponseEntity<MotoResponseDto> motoActualizar(@PathVariable int id, @RequestBody MotoRequestDto nuevaInfo){
+        return ResponseEntity.ok(motosService.actualizarInfo(id, nuevaInfo));
     }
 
     //GANANCIA ESTIMADA
     @GetMapping("/{id}/ganancia")
     public ResponseEntity<BigDecimal> ganancia (@PathVariable int id){
         BigDecimal motoGanancia = motosService.gananciaEstimada(id);
-        return ResponseEntity.ok(motoGanancia);
-    }
+        return ResponseEntity.ok(motoGanancia != null ? motoGanancia : BigDecimal.ZERO);    }
 
     //MARCAR MOTO COMO VENDIDA
     @PutMapping("/{id}/vendida")
-    public ResponseEntity<MotosModel> marcarVendida(@PathVariable int id){
-        MotosModel motoVendida = motosService.motoVendida(id);
-        return ResponseEntity.ok(motoVendida);
+    public ResponseEntity<MotoResponseDto> marcarVendida(@PathVariable int id){
+       return ResponseEntity.ok(motosService.motoVendida(id));
     }
 
     //MARCAR COMO MOTO DISPONIBLE
     @PutMapping("/{id}/disponible")
-    public ResponseEntity<MotosModel> marcarDisponible(@PathVariable int id){
-        MotosModel motoDisponible = motosService.motoDisponible(id);
-        return ResponseEntity.ok(motoDisponible);
+    public ResponseEntity<MotoResponseDto> marcarDisponible(@PathVariable int id){
+            return ResponseEntity.ok(motosService.motoDisponible(id));
     }
 }

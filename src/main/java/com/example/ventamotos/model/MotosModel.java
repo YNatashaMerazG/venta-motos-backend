@@ -3,6 +3,7 @@ package com.example.ventamotos.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
@@ -26,6 +27,7 @@ public class MotosModel {
     @Column(precision = 10, scale = 2)
     @NotNull(message = "Ingresa el precio de venta de la motocicleta")
     private BigDecimal precioVenta;
+    @Positive
     @NotNull(message = "Ingresa el costo de las reparaciones de la motocicleta")
     @Column(precision = 10, scale = 2)
     private BigDecimal costoReparaciones;
@@ -34,6 +36,7 @@ public class MotosModel {
     @NotNull(message = "Selecciona si la factura es original")
     private Boolean facturaOriginal;
     @Column(precision = 8, scale = 2)
+    @Positive
     @NotNull(message = "Ingresa los adeudos de la motocicleta")
     private BigDecimal adeudos;
     @NotNull(message = "Ingresa el estado estetico del 1 al 10")

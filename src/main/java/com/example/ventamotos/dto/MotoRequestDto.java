@@ -3,12 +3,12 @@ package com.example.ventamotos.dto;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
-import java.util.Formatter;
+
 
 public class MotoRequestDto {
-
     @NotBlank(message = "Ingresa la marca de la motocicleta")
     private String marca;
     @NotBlank(message = "Ingresa el modelo de la motocicleta")
@@ -22,14 +22,24 @@ public class MotoRequestDto {
     @Column(precision = 10, scale = 2)
     @NotNull(message = "Ingresa el precio de venta de la motocicleta")
     private BigDecimal precioVenta;
+    @Positive
     @NotNull(message = "Ingresa el costo de las reparaciones de la motocicleta")
     @Column(precision = 10, scale = 2)
     private BigDecimal costoReparaciones;
+    @NotBlank(message = "Ingresa las placas de la motocicleta")
+    private String placa;
+    @NotNull(message = "Selecciona si la factura es original")
+    private Boolean facturaOriginal;
+    @Column(precision = 8, scale = 2)
+    @Positive
+    @NotNull(message = "Ingresa los adeudos de la motocicleta")
+    private BigDecimal adeudos;
+    @NotNull(message = "Ingresa el estado estetico del 1 al 10")
+    private Integer estetico;
     @NotBlank(message = "Ingresa el color de la motocicleta")
     private String color;
     @NotNull(message = "Ingresa en que estatus se encuentra la motocicleta")
     private Boolean estatus;
-
     public String getMarca() {
         return marca;
     }
@@ -100,5 +110,37 @@ public class MotoRequestDto {
 
     public void setEstatus(Boolean estatus) {
         this.estatus = estatus;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+    public Boolean getFacturaOriginal() {
+        return facturaOriginal;
+    }
+
+    public void setFacturaOriginal(Boolean facturaOriginal) {
+        this.facturaOriginal = facturaOriginal;
+    }
+
+    public BigDecimal getAdeudos() {
+        return adeudos;
+    }
+
+    public void setAdeudos(BigDecimal adeudos) {
+        this.adeudos = adeudos;
+    }
+
+    public Integer getEstetico() {
+        return estetico;
+    }
+
+    public void setEstetico(Integer estetico) {
+        this.estetico = estetico;
     }
 }
