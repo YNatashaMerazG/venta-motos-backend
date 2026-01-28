@@ -1,5 +1,7 @@
 package com.example.ventamotos.controller;
 
+import com.example.ventamotos.dto.MotoRequestDto;
+import com.example.ventamotos.dto.MotoResponseDto;
 import com.example.ventamotos.model.MotosModel;
 import com.example.ventamotos.service.MotosService;
 import jakarta.validation.Valid;
@@ -22,8 +24,9 @@ public class MotosController {
 
     //INSERTAR MOTO
     @PostMapping
-    public ResponseEntity<MotosModel> insertarMoto(@Valid @RequestBody MotosModel motosModel){
-        return ResponseEntity.status(HttpStatus.CREATED).body(motosService.insertarMoto(motosModel));
+    public ResponseEntity<MotoResponseDto> insertarMoto(@Valid @RequestBody MotoRequestDto moto){
+        MotoResponseDto response = motosService.insertarMoto(moto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     //LISTA DE MOTOS
@@ -83,8 +86,8 @@ public class MotosController {
     }
 
     //ACTUALIZAR INFORMACION
-    @PutMapping("/{id}")
-    public ResponseEntity<MotosModel> motoActualizar(@PathVariable int id, @Valid @RequestBody MotosModel nuevaInfo){
+    @PatchMapping("/{id}")
+    public ResponseEntity<MotosModel> motoActualizar(@PathVariable int id, @RequestBody MotosModel nuevaInfo){
         MotosModel actualizarMoto = motosService.actualizarInfo(id, nuevaInfo);
         return ResponseEntity.ok(actualizarMoto);
     }

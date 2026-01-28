@@ -30,19 +30,17 @@ public class GlobalExcepciones {
 
     @ExceptionHandler(MotoNoEncontradaException.class)
     public ResponseEntity<Map<String, Object>> motoNoEncontradaExcepciones(MotoNoEncontradaException mne){
-        Map<String, Object> motoNoEncontradaerrores = Map.of(
-          "status", mne.getMessage(),
-          "error", 404
-        );
-        return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(motoNoEncontradaerrores);
+        Map<String, Object> motoNoEncontradaerrores = new HashMap<>();
+        motoNoEncontradaerrores.put("status", HttpStatus.NOT_FOUND.value());
+        motoNoEncontradaerrores.put("error", mne.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(motoNoEncontradaerrores);
     }
 
     @ExceptionHandler(DatosErroneosException.class)
     public ResponseEntity<Map<String, Object>> datosErronesExcepciones(DatosErroneosException dee){
-        Map<String, Object> datosErroneos = Map.of(
-          "status", dee.getMessage(),
-          "error", 400
-        );
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(datosErroneos);
+        Map<String, Object> datosErroneos = new HashMap<>();
+        datosErroneos.put("status", HttpStatus.BAD_REQUEST.value());
+        datosErroneos.put("error", dee.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(datosErroneos);
     }
 }

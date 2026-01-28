@@ -1,8 +1,10 @@
 package com.example.ventamotos.service;
 
+import com.example.ventamotos.dto.MotoResponseDto;
 import com.example.ventamotos.excepciones.DatosErroneosException;
 import com.example.ventamotos.excepciones.MotoNoEncontradaException;
 import com.example.ventamotos.model.MotosModel;
+import com.example.ventamotos.dto.MotoRequestDto;
 import com.example.ventamotos.repository.MotosRepository;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +34,11 @@ public class MotosService {
     }
 
     //INSERTAR MOTO
-    public MotosModel insertarMoto(MotosModel motosModel){
-        validarDatos(motosModel);
-        return motosRepository.save(motosModel);
+    public MotoResponseDto insertarMoto(MotoRequestDto dto){
+        MotosModel moto = mapToEntity(dto); //usuario
+        validarDatos(moto);
+        MotosModel motoGuardada = motosRepository.save(moto);
+        return mapToResponse(motoGuardada);
     }
 
     //LISTA DE LAS MOTOS
@@ -130,5 +134,34 @@ public class MotosService {
         motoDisponible.setEstatus(false);
         return motosRepository.save(motoDisponible);
     }
+
+    private MotosModel mapToEntity(MotoRequestDto dto) {
+        MotosModel moto = new MotosModel();
+        moto.setMarca(dto.getMarca());
+        moto.setModelo(dto.getModelo());
+        moto.setCilindrada(dto.getCilindrada());
+        moto.setAnio(dto.getAnio());
+        moto.setKilometraje(dto.getKilometraje());
+        moto.setPrecioVenta(dto.getPrecioVenta());
+        moto.setCostoReparaciones(dto.getCostoReparaciones());
+        moto.setColor(dto.getColor());
+        moto.setEstatus(dto.getEstatus() != null ? dto.getEstatus() : false);
+        return moto;
+    }
+
+    private MotoResponseDto mapToResponse(MotosModel moto) {
+        MotoResponseDto dto = new MotoResponseDto();
+        dto.setId(moto.getId());
+        dto.setMarca(moto.getMarca());
+        dto.setModelo(moto.getModelo());
+        dto.setCilindrada(moto.getCilindrada());
+        dto.setAnio(moto.getAnio());
+        dto.setKilometraje(moto.getKilometraje());
+        dto.setPrecioVenta(moto.getPrecioVenta());
+        dto.setEstatus(moto.getEstatus());
+        return dto;
+    }
+
+
 
 }
