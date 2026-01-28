@@ -27,7 +27,7 @@ public class MotosController {
     }
 
     //LISTA DE MOTOS
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<MotosModel>> listaMotos(){
         return ResponseEntity.ok(motosService.listaMotos());
     }
