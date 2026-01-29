@@ -1,24 +1,66 @@
-# Venta de Motos - Backend
+# Venta de Motos – Backend
 
-API REST desarrollada con **Spring Boot** para la gestión de venta de motos.
+API REST desarrollada con **Spring Boot** para la gestión de un inventario de motos destinadas a venta.
 
-## Tecnologías
+Este proyecto forma parte de mi portafolio como desarrolladora Java Backend de APIs REST.
+
+## Tecnologías utilizadas
+
 - Java 17
 - Spring Boot
 - Spring Data JPA
 - MySQL
 - Maven
+- Swagger
 
-## Funcionalidades
+## Funcionalidades principales
+
 - Crear motos
 - Listar motos
 - Buscar moto por ID
-- Actualizar información
-- Eliminar moto
+- Filtrar motos por:
+  - Marca
+  - Cilindrada
+  - Año
+  - Estatus (vendida / disponible)
+  - Rango de precio
+- Actualizar información de una moto
+- Eliminar motos (con validaciones de negocio)
+- Marcar motos como vendidas o disponibles
+- Calcular ganancia estimada de una moto
 - Manejo de excepciones personalizadas
+- Validaciones de datos de entrada
+- Documentación automática con Swagger
+
+## Arquitectura
+
+El proyecto sigue una arquitectura en capas:
+
+- Controller
+- Service
+- Repository
+- DTOs
+- Manejo global de excepciones
+
+## Pruebas
+
+Los endpoints fueron probados usando **Postman** y documentados con **Swagger**.
+
+## 📖 Documentación de la API
+
+Swagger UI disponible en:
+
+http://localhost:8080/swagger-ui/index.html#/
 
 ## Base de datos
-MySQL
+
+- MySQL
+- Hibernate (JPA)
+- Creación y actualización automática de tablas
 
 ## Estado del proyecto
-En desarrollo
+
+Proyecto funcional y en constante mejora.
+
+
+
