@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 
 
 public class MotoRequestDto {
+    private Integer id;
     @NotBlank(message = "Ingresa la marca de la motocicleta")
     private String marca;
     @NotBlank(message = "Ingresa el modelo de la motocicleta")
@@ -140,5 +141,13 @@ public class MotoRequestDto {
 
     public void setEstetico(Integer estetico) {
         this.estetico = estetico;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

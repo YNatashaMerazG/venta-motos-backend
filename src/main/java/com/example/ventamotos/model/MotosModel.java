@@ -127,5 +127,9 @@ public class MotosModel {
     public void setEstatus(Boolean estatus) {
         this.estatus = estatus;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }
 
