@@ -14,34 +14,21 @@ public class MotosModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotBlank(message = "Ingresa la marca de la motocicleta")
     private String marca;
-    @NotBlank(message = "Ingresa el modelo de la motocicleta")
     private String modelo;
-    @NotNull(message = "Ingresa la cilimdrada de la motocicleta")
     private Integer cilindrada;
-    @NotNull(message = "Ingresa el año de la motocicleta")
     private Integer anio;
-    @NotNull(message = "Ingresa el kilometraje de la motocicleta")
     private Long kilometraje;
-    @Column(precision = 10, scale = 2)
-    @NotNull(message = "Ingresa el precio de venta de la motocicleta")
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal precioVenta;
-    @NotNull(message = "Ingresa el costo de las reparaciones de la motocicleta")
     @Column(precision = 10, scale = 2)
     private BigDecimal costoReparaciones;
-    @NotBlank(message = "Ingresa las placas de la motocicleta")
     private String placa;
-    @NotNull(message = "Selecciona si la factura es original")
     private Boolean facturaOriginal;
-    @Column(precision = 8, scale = 2)
-    @NotNull(message = "Ingresa los adeudos de la motocicleta")
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal adeudos;
-    @NotNull(message = "Ingresa el estado estetico del 1 al 10")
     private Integer estetico;
-    @NotBlank(message = "Ingresa el color de la motocicleta")
     private String color;
-    @NotNull(message = "Ingresa en que estatus se encuentra la motocicleta")
     private Boolean estatus;
 
     public MotosModel(){}

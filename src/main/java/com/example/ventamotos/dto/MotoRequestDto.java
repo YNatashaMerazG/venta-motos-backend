@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 
 
 public class MotoRequestDto {
-    private Integer id;
     @NotBlank(message = "Ingresa la marca de la motocicleta")
     private String marca;
     @NotBlank(message = "Ingresa el modelo de la motocicleta")
@@ -20,17 +19,14 @@ public class MotoRequestDto {
     private Integer anio;
     @NotNull(message = "Ingresa el kilometraje de la motocicleta")
     private Long kilometraje;
-    @Column(precision = 10, scale = 2)
     @NotNull(message = "Ingresa el precio de venta de la motocicleta")
     private BigDecimal precioVenta;
     @NotNull(message = "Ingresa el costo de las reparaciones de la motocicleta")
-    @Column(precision = 10, scale = 2)
     private BigDecimal costoReparaciones;
     @NotBlank(message = "Ingresa las placas de la motocicleta")
     private String placa;
     @NotNull(message = "Selecciona si la factura es original")
     private Boolean facturaOriginal;
-    @Column(precision = 8, scale = 2)
     @NotNull(message = "Ingresa los adeudos de la motocicleta")
     private BigDecimal adeudos;
     @NotNull(message = "Ingresa el estado estetico del 1 al 10")
@@ -141,13 +137,5 @@ public class MotoRequestDto {
 
     public void setEstetico(Integer estetico) {
         this.estetico = estetico;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 }
