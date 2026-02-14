@@ -1,9 +1,7 @@
 package com.example.ventamotos.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
@@ -34,7 +32,7 @@ public class MotoRequestDto {
     @NotBlank(message = "Ingresa el color de la motocicleta")
     private String color;
     @NotNull(message = "Ingresa en que estatus se encuentra la motocicleta")
-    private Boolean estatus;
+    private Boolean estatus; // false=disponible, true=vendida
     public String getMarca() {
         return marca;
     }

@@ -1,10 +1,6 @@
 package com.example.ventamotos.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-
 import java.math.BigDecimal;
 
 @Entity
@@ -29,7 +25,7 @@ public class MotosModel {
     private BigDecimal adeudos;
     private Integer estetico;
     private String color;
-    private Boolean estatus;
+    private Boolean estatus; // false=disponible, true=vendida
 
     public MotosModel(){}
 

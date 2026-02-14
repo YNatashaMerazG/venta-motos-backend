@@ -2,30 +2,15 @@ package com.example.ventamotos.dto;
 
 import java.math.BigDecimal;
 
-public class MotoResponseDto {
-    private Integer id;
+public class MotoPublicResponseDto {
     private String marca;
     private String modelo;
     private Integer cilindrada;
     private Integer anio;
     private Long kilometraje;
-    private String color;
-    private String placa;
-    private Integer estetico;
     private BigDecimal precioVenta;
-    private BigDecimal costoReparaciones;
-    private BigDecimal adeudos;
-    private Boolean estatus; // false=disponible, true=vendida
-
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private String color;
+    private Boolean facturaOriginal;
 
     public String getMarca() {
         return marca;
@@ -83,43 +68,11 @@ public class MotoResponseDto {
         this.color = color;
     }
 
-    public String getPlaca() {
-        return placa;
+    public Boolean getFacturaOriginal() {
+        return facturaOriginal;
     }
 
-    public void setPlaca(String placa) {
-        this.placa = placa;
-    }
-
-    public Integer getEstetico() {
-        return estetico;
-    }
-
-    public void setEstetico(Integer estetico) {
-        this.estetico = estetico;
-    }
-
-    public BigDecimal getCostoReparaciones() {
-        return costoReparaciones;
-    }
-
-    public void setCostoReparaciones(BigDecimal costoReparaciones) {
-        this.costoReparaciones = costoReparaciones;
-    }
-
-    public BigDecimal getAdeudos() {
-        return adeudos;
-    }
-
-    public void setAdeudos(BigDecimal adeudos) {
-        this.adeudos = adeudos;
-    }
-
-    public Boolean getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(Boolean estatus) {
-        this.estatus = estatus;
+    public void setFacturaOriginal(Boolean facturaOriginal) {
+        this.facturaOriginal = facturaOriginal;
     }
 }

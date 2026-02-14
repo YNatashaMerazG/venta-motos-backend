@@ -16,6 +16,8 @@ public interface MotosRepository extends JpaRepository<MotosModel, Integer> {
     List<MotosModel> findByAnio(Integer anio);
     //ENCONTRAR POR STATUS'
     List<MotosModel> findByEstatus(Boolean estatus);
+    //ENCONTRAR POR DISPONIBLE
+    List<MotosModel> findByEstatusFalse();
     //ENCONTRAR POR UN RANGO DE PRECIO
     List<MotosModel> findByPrecioVentaBetween(BigDecimal min, BigDecimal max);
 }

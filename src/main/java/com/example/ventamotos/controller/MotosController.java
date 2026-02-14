@@ -1,5 +1,6 @@
 package com.example.ventamotos.controller;
 
+import com.example.ventamotos.dto.MotoPublicResponseDto;
 import com.example.ventamotos.dto.MotoRequestDto;
 import com.example.ventamotos.dto.MotoResponseDto;
 import com.example.ventamotos.model.MotosModel;
@@ -22,53 +23,58 @@ public class MotosController {
         this.motosService = motosService;
     }
 
-    //INSERTAR MOTO
+    //INSERTAR MOTO (ADMIN)
     @PostMapping
     public ResponseEntity<MotoResponseDto> insertarMoto(@Valid @RequestBody MotoRequestDto moto){
         MotoResponseDto response = motosService.insertarMoto(moto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    //LISTA DE MOTOS
+    //LISTA DE MOTOS (ADMIN)
     @GetMapping
     public ResponseEntity<List<MotoResponseDto>> listaMotos(){
         return ResponseEntity.ok(motosService.listaMotos());
     }
 
-    //BUSCAR POR ID
+    @GetMapping("/disponibles")
+    public ResponseEntity<List<MotoResponseDto>> buscarDisponible(){
+        return ResponseEntity.ok(motosService.buscarDisponibles());
+    }
+
+    //BUSCAR POR ID (ADMIN)
     @GetMapping("/{id}")
     public ResponseEntity<MotoResponseDto> buscarID(@PathVariable int id){
         return ResponseEntity.ok(motosService.buscarmotoporID(id));
     }
 
-    //BUSCAR POR MARCA
+    //BUSCAR POR MARCA (ADMIN)
     @GetMapping("/marca/{marca}")
-    public ResponseEntity<List<MotoResponseDto>> buscarMarca(@PathVariable String marca){
+    public ResponseEntity<List<MotoResponseDto>> buscarmarca(@PathVariable String marca){
         return ResponseEntity.ok(motosService.buscarMarca(marca));
     }
 
-    //BUSCAR POR CILINDRADA
+    //BUSCAR POR CILINDRADA (ADMIN)
     @GetMapping("/cilindrada/{cilindrada}")
     public ResponseEntity<List<MotoResponseDto>> buscarCilindrada(@PathVariable Integer cilindrada){
         List<MotoResponseDto> motoCilindrada = motosService.buscarCC(cilindrada);
         return ResponseEntity.ok(motoCilindrada);
     }
 
-    //BUSCAR POR ANIO
+    //BUSCAR POR ANIO (ADMIN)
     @GetMapping("/anio/{anio}")
     public ResponseEntity<List<MotoResponseDto>> buscarAnio(@PathVariable Integer anio){
         List<MotoResponseDto> motoAnio = motosService.buscarAnio(anio);
         return ResponseEntity.ok(motoAnio);
     }
 
-    //BUSQUEDA POR ESTATUS
+    //BUSQUEDA POR ESTATUS (ADMIN)
     @GetMapping("/estatus/{estatus}")
     public ResponseEntity<List<MotoResponseDto>> busquedaEstatus(@PathVariable Boolean estatus){
         List<MotoResponseDto> motoEstatus = motosService.buscarEstatus(estatus);
         return ResponseEntity.ok(motoEstatus);
     }
 
-    //BUSQUEDA RANGO PRECIO
+    //BUSQUEDA RANGO PRECIO (ADMIN)
     @GetMapping("/precio")
     public ResponseEntity<List<MotoResponseDto>> rangoPrecio(@RequestParam BigDecimal min, @RequestParam BigDecimal max){
         List<MotoResponseDto> motorangoprecio = motosService.buscarRangoPrecio(min, max);
