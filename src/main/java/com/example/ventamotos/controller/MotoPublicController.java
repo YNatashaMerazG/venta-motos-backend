@@ -43,13 +43,6 @@ public class MotoPublicController {
         return ResponseEntity.ok(motoaniopublic);
     }
 
-    //BUSQUEDA POR ESTATUS (USUARIO)
-    @GetMapping("/estatus/{estatus}")
-    public ResponseEntity<List<MotoPublicResponseDto>> busquedaestatuspublic(@PathVariable boolean estatus){
-        List<MotoPublicResponseDto> motoestatusp = motosService.buscarEstatuspublic(estatus);
-        return ResponseEntity.ok(motoestatusp);
-    }
-
     //BUSQUEDA RANGO PRECIO (USUARIO)
     @GetMapping("/precio")
     public ResponseEntity<List<MotoPublicResponseDto>> rangopreciopublic(@RequestParam BigDecimal min, @RequestParam BigDecimal max){

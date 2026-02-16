@@ -36,11 +36,6 @@ public class MotosController {
         return ResponseEntity.ok(motosService.listaMotos());
     }
 
-    @GetMapping("/disponibles")
-    public ResponseEntity<List<MotoResponseDto>> buscarDisponible(){
-        return ResponseEntity.ok(motosService.buscarDisponibles());
-    }
-
     //BUSCAR POR ID (ADMIN)
     @GetMapping("/{id}")
     public ResponseEntity<MotoResponseDto> buscarID(@PathVariable int id){

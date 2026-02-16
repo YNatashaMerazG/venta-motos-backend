@@ -57,14 +57,6 @@ public class MotosService {
                 .toList();
     }
 
-    //SOLO DISPONIBLES (usuario)
-    public List<MotoResponseDto> buscarDisponibles(){
-        List<MotosModel> motodisponible = motosRepository.findByEstatusFalse();
-        return motodisponible.stream()
-                .map(this::mapToResponse)
-                .toList();
-    }
-
     //BUSCAR POR ID (ENTITY)
     public MotosModel buscarMotoEntity(int id){
         return motosRepository.findById(id)
@@ -209,13 +201,6 @@ public class MotosService {
                 .toList();
     }
 
-    //BUSCAR POR STATUS (USUARIO)
-    public List<MotoPublicResponseDto> buscarEstatuspublic(Boolean estatus){
-        List<MotosModel> motoestatuspublic = motosRepository.findByEstatus(estatus);
-        return motoestatuspublic.stream()
-                .map(this::mapPublicResponseDto)
-                .toList();
-    }
     //BUSQUEDA POR RANGO DE PRECIO (USUARIO)
     public List<MotoPublicResponseDto> buscarrangopreciopublic (BigDecimal min, BigDecimal max){
         List<MotosModel> motos = motosRepository.findByPrecioVentaBetween(min, max);
@@ -223,8 +208,6 @@ public class MotosService {
                 .map(this::mapPublicResponseDto)
                 .toList();
     }
-
-
 
     private MotosModel mapToEntity(MotoRequestDto dto) {
         MotosModel moto = new MotosModel();
